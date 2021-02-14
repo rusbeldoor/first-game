@@ -54,7 +54,7 @@ GraphicsSettings:
       hdrMode: 2
       realtimeGICPUUsage: 25
       useReflectionProbeBoxProjection: 0
-      useReflectionProbeBlending: 0
+      useReflectionProbeBlending: 1
       useHDR: 0
       useDetailNormalMap: 0
       useCascadedShadowMaps: 0

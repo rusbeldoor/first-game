@@ -176,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -276,7 +276,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u041D\u0430\u0437\u0430\u0434"
+  m_Text: "\u041C\u0435\u043D\u044E"
 --- !u!222 &947929411
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -321,7 +321,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -265, y: 112}
+  m_AnchoredPosition: {x: -362, y: 184}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &991055978
@@ -338,6 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -369,7 +370,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2140576768190019570, guid: 6705ed27835f85c48849f330856d31e5, type: 3}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ButtonBack
+        m_MethodName: ToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -446,9 +447,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 048293eb679f6014b841e6429d2be7c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPrefab: {fileID: 2762619105573695696, guid: 08e8bb4ca8a648d4f95191d9594d32d0, type: 3}
-  weight: 10
+  prefabFigure: {fileID: 2762619105573695696, guid: 08e8bb4ca8a648d4f95191d9594d32d0, type: 3}
+  figuresList: []
+  pointsList: []
+  width: 0
   height: 10
+  oneW: 0
+  oneH: 0
 --- !u!4 &1231573785
 Transform:
   m_ObjectHideFlags: 0
@@ -521,6 +526,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &1284070704
 Canvas:
   m_ObjectHideFlags: 0

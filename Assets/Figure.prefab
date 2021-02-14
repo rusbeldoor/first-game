@@ -43,4 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a96b09345211b134b85e0a1741ed1229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pfbPoint: {fileID: 4273039486889460761, guid: 8acda9f4e80382543899a72d8e370e50, type: 3}
+  prefabFigure: {fileID: 2762619105573695696}
+  prefabPoint: {fileID: 4273039486889460761, guid: 8acda9f4e80382543899a72d8e370e50, type: 3}

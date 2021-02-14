@@ -1,31 +1,68 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+
 public class Game : MonoBehaviour
 {
-    public GameObject myPrefab;
-    public int weight = 10, height = 10;
+    public GameObject prefabFigure;
+    public DateTime newFigureCreationTime;
+    public List<GameObject> figuresList = new List<GameObject>();
+    public List<GameObject> pointsList = new List<GameObject>();
 
-    static List<Figure> figures = new List<Figure>();
-
-
+    public int width, height;
+    public double oneW, oneH;
 
     void Start()
     {
-        Instantiate(myPrefab);
-        // Устанавливаем метод обратного вызова
-        //TimerCallback timerCallback = new TimerCallback(GenerateFigure);
+        width = Main.random.Next(4, 9);
+        if (width % 2 != 0) { width++; }
+        height = Main.random.Next(4, 9);
+        if (height % 2 != 0) { height++; }
 
-        // Создаем таймер
-        //Timer timer = new Timer(timerCallback, null, 0, 5000);
+        oneW = 1.8 * 2 / (width + 2);
+        oneH = 1 * 2 * 1d / (height + 2);
+
+        AddFigure();
     }
 
-    public void GenerateFigure()
+    void Update()
     {
-        Instantiate(myPrefab);
-        //Figure figure = new Figure();
-        //figures.Add(figure);
+        // Если с момента добавления последней фигуры прошло более 5 секунд
+        if ((DateTime.Now - newFigureCreationTime).TotalMilliseconds > 5000) {
+            // Запоминаем время добавления последней фигуры
+            newFigureCreationTime = DateTime.Now;
+            // Добавляем фигуру
+            //AddFigure();
+        }
+
+        print(Screen.width);
+    }
+
+    /*
+     * Добавление фигуры
+     */
+    public void AddFigure()
+    {
+        figuresList.Add(Instantiate(prefabFigure));
+    }
+
+    /*
+     * 
+     */
+    public bool IssetPointByXY(int x, int y)
+    {
+        // Перебираем все точки в игре
+        foreach (var item in this.pointsList)
+        {
+            Point item2 = item.GetComponent<Point>();
+
+            // Если есть точка с темиже координатами
+            if ((item2.x == x) && (item2.y == y)) { return true; }
+        }
+
+        return false;
     }
 }

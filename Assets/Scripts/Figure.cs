@@ -4,65 +4,74 @@ using UnityEngine;
 
 public class Figure : MonoBehaviour
 {
-    public GameObject pfbPoint;
-    int x, y;
-    int width, height;
+    public GameObject prefabPoint;
+    public List<GameObject> pointsList = new List<GameObject>();
+
+    public int x, y;
+    public int width, height;
+
     List<Point> points = new List<Point>();
-
-    string color;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        width = Main.random.Next(1, 5);
-        height = Main.random.Next(1, 5);
-        //x = Main.random.Next(1, GameObject.Find("Game").GetComponent<Game>().weight - width);
-        //y = Main.random.Next(1, GameObject.Find("Game").GetComponent<Game>().height - height);
-        x = 10;
-        y = 10;
+        var game = GameObject.Find("Game").GetComponent<Game>();
 
+        width = Main.random.Next(1, 4);
+        height = Main.random.Next(1, 4);
+        x = Main.random.Next(1, game.width - width + 1);
+        y = Main.random.Next(1, game.height - height + 1);
+
+        // Вычисляем необходимое количество точек
         int figurePointsCount = width * height * Main.random.Next(50, 71) / 100;
         if (figurePointsCount < 1) { figurePointsCount = 1; }
         if (figurePointsCount > width * height) { figurePointsCount = width * height; }
-        List<int[]> figurePoints = new List<int[]>();
-        while (figurePoints.Count < figurePointsCount)
+
+        // Пока количество точек фигуры меньше необходимого количества точек
+        while (this.pointsList.Count < figurePointsCount) 
         {
-            int figureX = Main.random.Next(1, width + 1);
-            int figureY = Main.random.Next(1, height + 1);
-            int[] point = new int[2] { figureX, figureY };
-            bool flag = true;
-            if (figurePoints != null && figurePoints.Count > 0)
+            int newPointX = Main.random.Next(x, width + 1);
+            int newPointY = Main.random.Next(y, height + 1);
+            print(newPointX);
+            print(newPointY);
+            if (!this.IssetPointByXY(newPointX, newPointY)) 
             {
-                foreach (var item in figurePoints)
-                {
-                    if (item[0] == figureX && item[1] == figureY)
-                    {
-                        flag = false;
-                        break;
-                    }
-                    flag = true;
-                    continue;
-                }
-            }
-            
-            if (flag) {
-                figurePoints.Add(point);
+                GameObject point = Instantiate(prefabPoint);
 
-                //Point point2 = new Point(x, y);
-                //points.Add(point2);
-                //gameObject.AddComponent<Point>();
-                GameObject currentPoint = Instantiate(pfbPoint);
-                currentPoint.transform.position = new Vector3(figureX, figureY, 0);
-            }
-        }
+                Point point2 = point.GetComponent<Point>();
+                point2.x = newPointX;
+                point2.y = newPointY;
 
-        
+                game.pointsList.Add(point);
+                this.pointsList.Add(point);
+            }
+        }        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        var game = GameObject.Find("Game").GetComponent<Game>();
+        double x, y;
+        x = (this.x - 1 - (int)(game.width / 2)) * game.oneW;
+        y = ((int)(game.height / 2) - this.y + 1) * game.oneH;
+        gameObject.transform.position = new Vector3((float)x, (float)y, 0);
+    }
+
+    /*
+     * 
+     */
+    public bool IssetPointByXY(int x, int y)
+    {
+        // Перебираем все точки в игре
+        foreach (var item in this.pointsList)
+        {
+            Point item2 = item.GetComponent<Point>();
+
+            // Если есть точка с темиже координатами
+            if ((item2.x == x) && (item2.y == y)) { return true; }
+        }
+
+        return false;
     }
 }

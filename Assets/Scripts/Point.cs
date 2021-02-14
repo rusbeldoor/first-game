@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class Point : MonoBehaviour
 {
-    public GameObject myPrefab;
-    int x, y;
+    public int x, y;
 
-    public Point(int x, int y)
-    {
-        this.x = x;
-        this.y = y;
-    }
     // Start is called before the first frame update
     void Start()
     {
-        int zz = Main.random.Next(1,5);
+        
         //Instantiate(myPrefab, new Vector3(zz, zz, 0), Quaternion.identity);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        var game = GameObject.Find("Game").GetComponent<Game>();
+        double x, y;
+        x = (this.x - 1 - (int)(game.width / 2)) * game.oneW;
+        y = ((int)(game.height / 2) - this.y + 1) * game.oneH;
+        gameObject.transform.position = new Vector3((float)x, (float)y, 0);
+        gameObject.transform.localScale = new Vector3((float)game.oneH, (float)game.oneH, 1);
     }
 }
